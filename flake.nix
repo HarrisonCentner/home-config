@@ -17,6 +17,8 @@
     configuration = { pkgs, ... }: {
       # Necessary for using flakes on this system.
       nix.settings.experimental-features = "nix-command flakes";
+      # This will allow you to use nix-darwin with Determinate. Some nix-darwin functionality that relies on managing the Nix installation, like the `nix.*` options to adjust Nix settings or configure a Linux builder, will be unavailable.
+      nix.enable = false;
 
       # The platform the configuration will be used on.
       nixpkgs.hostPlatform = "x86_64-darwin";
@@ -33,11 +35,11 @@
         home-manager.darwinModules.home-manager {
           home-manager = {
             # include the home-manager module
-            users.hcentner = import ./templates/home-manager/home.nix;
+            users.harrisoncentner = import ./templates/home-manager/home.nix;
             useGlobalPkgs = true;
             useUserPackages = true;
           };
-          users.users.hcentner.home = "/Users/harrisoncentner";
+          users.users.harrisoncentner.home = "/Users/harrisoncentner";
           nix.settings.trusted-users = ["harrisoncentner"];
         }
       ];

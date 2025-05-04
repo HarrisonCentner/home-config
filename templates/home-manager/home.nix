@@ -2,8 +2,8 @@
 { config, pkgs, ... }: 
 {
   home = {
-    username = "hcentner";
-    # homeDirectory = "/home/hcentner";
+    username = "harrisoncentner";
+    # homeDirectory = "/home/harrisoncentner";
 
     # Set Git commit hash for darwin-version.
     # home.configurationRevision = self.rev or self.dirtyRev or null;
@@ -11,20 +11,16 @@
     # Used for backwards compatibility, please read the changelog before changing.
     # $ darwin-rebuild changelog
     sessionPath = [
-      "/home/hcentner/nixconfig"
+      "/home/harrisoncentner/nixconfig"
     ];
     sessionVariables = {
       EDITOR = "vim";
-      XDG_CACHE_HOME = "$HOME/.cache";
-      XDG_CONFIG_HOME = "$HOME/.config";
-      XDG_DATA_HOME = "$HOME/.local/share";
-      XDG_STATE_HOME = "$HOME/.local/state";
-      shellAliases = {
+      #shellAliases = {
       # rebuild-vm = "sudo nixos-rebuild switch --flake #hcentner-utm"; rebuild-desktop = "sudo nixos-rebuild switch --flake #hcentner-desktop";
-      };
+      # };
     };
 
-    stateVersion = "25.05";
+    stateVersion = "24.11";
   };
   home.packages = with pkgs; [
     duf # disk usage/free utility
@@ -32,7 +28,6 @@
     gh # github clie tool
     jq # JSON processor
     nixpkgs-fmt # nix formatter
-    parted # manage partitions
     cabal2nix # generate nix derivations from cabal files
     sd # sed alternative
     sqlite # transactional SQL database engine
@@ -48,7 +43,6 @@
     lsof # view port information
     lazygit # easy UI for git
     bc # gnu basic calculator
-    virtiofsd # utm shared folder
     typst # typesetting language
     nix-output-monitor # nom for nix
     dhall # configuration language
