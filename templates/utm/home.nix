@@ -20,9 +20,11 @@
       # };
     };
 
-    stateVersion = "24.11";
+    stateVersion = "25.05";
   };
   home.packages = with pkgs; [
+    git # version control
+    vim # file editor
     duf # disk usage/free utility
     fd # find alternative
     gh # github clie tool

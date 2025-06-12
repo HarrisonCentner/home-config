@@ -7,7 +7,7 @@
     nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -23,10 +23,23 @@
       # The platform the configuration will be used on.
       nixpkgs.hostPlatform = "x86_64-darwin";
  };
+defaultModules = [
+		home-manager.nixosModules.home-manager {
+			_module.args = {inherit inputs;};
+			home-manager = {
+				useGlobalPkgs = true;
+				useUserPackages = true;
+				extraSpecialArgs = {inherit inputs;};
+				users.hcentner = import ./templates/utm/home.nix;
+			};
+			imports = [ ./templates/utm/hardware-configuration.nix ];
+}
+];
  in
  {
 # Build darwin flake using:
 # $ darwin-rebuild build --flake .#Harrisons-MacBook-Pro-7
+    formatter = nixpkgs.nixpkgs-fmt;
     darwinConfigurations."Harrisons-MacBook-Pro-7" = nix-darwin.lib.darwinSystem {
       modules = [ 
         configuration 
@@ -45,5 +58,11 @@
       ];
 
     };
-  };
+    nixosConfigurations = {
+	    hcentner-personal-utm = nixpkgs.lib.nixosSystem {
+		    system = "x86_64-linux";
+		    modules = [ ./templates/utm/default.nix ] ++ defaultModules;
+	    };
+    };
+ };
 }
