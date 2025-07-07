@@ -27,5 +27,7 @@
   time.timeZone = "America/Los_Angeles";
 
   # Fonts
-  fonts = { };
+  fonts.packages = with pkgs; [
+    nerd-fonts.droid-sans-mono
+  ];
 }
